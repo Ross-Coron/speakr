@@ -1,3 +1,16 @@
+library(glue)
+library(httr)
+library(xml2)
+library(jsonlite) # For fromJSON
+library(base64enc) # For base64_decode
+
+
+# Get inquiry number from user
+get_inquiry_id <- function() {
+  inquiry_id <- readline(prompt = "Input unique inquiry ID: ")
+}
+
+
 # Input inquiry ID (`committee_business_id`), returns list of unique document IDs
 get_document_ids <- function(committee_business_id) {
   
@@ -12,6 +25,8 @@ get_document_ids <- function(committee_business_id) {
   document_ids <- parsed_data$items[9]
 }
 
+
+# Input vector of documents, get document data as data frame
 get_documents <- function(document_list) {
   
   # Initialize an empty data frame for results
@@ -57,13 +72,15 @@ get_documents <- function(document_list) {
       # Append an error message if the request failed
       results <- rbind(results, data.frame(evidence_id = document, extracted_text = paste("Failed to retrieve. Status:", status_code(response)), stringsAsFactors = FALSE))
     }
-
   }
   
   # Return the final results
   return(results)
 }
 
-document_ids <- get_document_ids(1813)
-document <- get_documents(document_ids)
-write.csv(document, "foo.csv", row.names = FALSE)
+
+# Test code. Enter 1813 to test
+inquiry_id <- get_inquiry_id()
+document_ids <- get_document_ids(inquiry_id)
+documents_dataframe <- get_documents(document_ids)
+write.csv(documents_dataframe, "test_output.csv", row.names = FALSE)
