@@ -23,6 +23,7 @@ get_document_ids <- function(committee_business_id) {
   json_content <- content(response, as = "text", encoding = "UTF-8")
   parsed_data <- fromJSON(json_content)
   document_ids <- parsed_data$items[9]
+  
 }
 
 
