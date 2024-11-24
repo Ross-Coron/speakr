@@ -1,13 +1,19 @@
-# Define REGEX string (most often redundant line at start of evidence)
+# Define REGEX expression (most often redundant line at start of evidence)
 regex_string <- "^ISG.*\\(ISG\\s\\d+\\)"
 
-removed_text <- c()
+# Check evidence text for REGEX expression
 matches <- gregexpr(regex_string, evidence_text$extracted_text)
 extracted <- regmatches(evidence_text$extracted_text, matches)
+
+# Save removed text to .txt file
+removed_text <- c()
 for (match in extracted) {
+  if (length(match) == 0) {
+    removed_text <- c(removed_text, "<NO TEXT REMOVED>")
+  }
   removed_text <- c(removed_text, match)
 }
 writeLines(removed_text, "removed_text.txt")
 
-# Looks for string in data frame, removing if found
+# Remove identified REGEX text from data frame
 evidence_text$extracted_text <- gsub(regex_string, "", evidence_text$extracted_text)
