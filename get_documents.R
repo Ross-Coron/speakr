@@ -1,36 +1,3 @@
-library(glue)
-library(httr)
-library(xml2)
-library(jsonlite) # For fromJSON
-library(base64enc) # For base64_decode
-
-
-# Get inquiry number from user
-get_inquiry_id <- function() {
-  inquiry_id <- readline(prompt = "Input unique inquiry ID: ")
-}
-
-
-# Input inquiry ID (`committee_business_id`), returns list of unique document IDs
-get_document_ids <- function(committee_business_id) {
-  
-  # Build URL
-  url <- "https://committees-api.parliament.uk/api/WrittenEvidence?CommitteeBusinessId={committee_business_id}"
-  url <- glue(url)
-  
-  # Extract IDs from JSON
-  response <- GET(url)
-  json_content <- content(response, as = "text", encoding = "UTF-8")
-  parsed_data <- fromJSON(json_content)
-  document_ids <- parsed_data$items[9]
-  
-}
-
-
-# 
-
-
-
 # Input vector of documents, get document data as data frame
 get_documents <- function(document_list) {
   
@@ -82,19 +49,3 @@ get_documents <- function(document_list) {
   # Return the final results
   return(results)
 }
-
-
-# Test code. Enter 1813 to test
-inquiry_id <- get_inquiry_id()
-document_ids <- get_document_ids(inquiry_id)
-
-submitters <- get_submitters(inquiry_id)
-evidence_text <- get_documents(document_ids)
-
-output <- data.frame(
-  id = evidence_text$evidence_id, 
-  submitter = submitters, 
-  text = evidence_text$extracted_text
-)
-
-write.csv(output, "written_evidence.csv", row.names = FALSE)

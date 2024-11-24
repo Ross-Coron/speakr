@@ -1,2 +1,5 @@
 *.html
 *.Rmd
+*.DS_Store
+* .Rprofile
+*.csv
