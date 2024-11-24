@@ -1,8 +1,8 @@
 # Input inquiry ID (`committee_business_id`), returns list of unique document IDs
-get_document_ids <- function(committee_business_id) {
+get_document_ids <- function(inquiry_id) {
   
   # Build URL
-  url <- "https://committees-api.parliament.uk/api/WrittenEvidence?CommitteeBusinessId={committee_business_id}&Take=256"
+  url <- "https://committees-api.parliament.uk/api/WrittenEvidence?CommitteeBusinessId={inquiry_id}&Take=256"
   
   url <- glue(url)
   

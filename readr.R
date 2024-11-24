@@ -4,14 +4,14 @@ library(xml2)
 library(jsonlite)
 library(base64enc)
 
-source("get_inquiry_id.R")
+source("select_inquiry.R")
 source("get_document_ids.R")
 source("get_submitters.R")
 source("get_documents.R")
-
+source("evidence_clean.R")
 
 # Get inquiry ID from user
-inquiry_id <- get_inquiry_id()
+inquiry_id <- select_inquiry()
 
 # Get list of IDs of evidence documents submitted to inquiry
 document_ids <- get_document_ids(inquiry_id)

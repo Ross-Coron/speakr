@@ -1,4 +1,5 @@
 # Get inquiry number from user
-get_inquiry_id <- function() {
+select_inquiry <- function() {
   inquiry_id <- readline(prompt = "Input unique inquiry ID: ")
 }
+
