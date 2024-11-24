@@ -1,12 +1,17 @@
 library(jsonlite)
 library(tidyverse)
 
-url <- "https://committees-api.parliament.uk/api/WrittenEvidence?CommitteeBusinessId=1813"
+get_submitters <- function(inquiry_id)
 
+
+# Get JSON from URL and parse
+url <- "https://committees-api.parliament.uk/api/WrittenEvidence?{inquury_id}"
 jsonData <- fromJSON(url)
 jsonData <- jsonData$items |> select(witnesses)
 
 organisations <- c()
+
+# For each item, get organisation's name
 for (i in 1:nrow(jsonData)) {
   
   if (is.null(jsonData$witnesses[[i]]$organisations[[1]]$name)) {
@@ -14,6 +19,10 @@ for (i in 1:nrow(jsonData)) {
   } else {
     organisations = c(organisations, jsonData$witnesses[[i]]$organisations[[1]]$name)
   }
-}  
+  
+  
+  
+}
 
-organisations
+return(organisations)
+

@@ -27,6 +27,10 @@ get_document_ids <- function(committee_business_id) {
 }
 
 
+# 
+
+
+
 # Input vector of documents, get document data as data frame
 get_documents <- function(document_list) {
   
@@ -83,5 +87,14 @@ get_documents <- function(document_list) {
 # Test code. Enter 1813 to test
 inquiry_id <- get_inquiry_id()
 document_ids <- get_document_ids(inquiry_id)
-documents_dataframe <- get_documents(document_ids)
-write.csv(documents_dataframe, "test_output.csv", row.names = FALSE)
+
+submitters <- get_submitters(inquiry_id)
+evidence_text <- get_documents(document_ids)
+
+output <- data.frame(
+  id = evidence_text$evidence_id, 
+  submitter = submitters, 
+  text = evidence_text$extracted_text
+)
+
+write.csv(output, "written_evidence.csv", row.names = FALSE)

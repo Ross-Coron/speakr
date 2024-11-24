@@ -50,6 +50,3 @@ for (x in evidence) {
     results <- rbind(results, data.frame(evidence_id = x, extracted_text = paste("Failed to retrieve. Status:", status_code(response)), stringsAsFactors = FALSE))
   }
 }
-
-# Print results to check the output
-print(results)
