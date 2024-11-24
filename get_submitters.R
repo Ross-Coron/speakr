@@ -1,11 +1,11 @@
 library(jsonlite)
 library(tidyverse)
 
-get_submitters <- function(inquiry_id)
+get_submitters <- function(inquiry_id) {
 
 
 # Get JSON from URL and parse
-url <- "https://committees-api.parliament.uk/api/WrittenEvidence?{inquury_id}"
+url <- "https://committees-api.parliament.uk/api/WrittenEvidence?{inquiry_id}"
 jsonData <- fromJSON(url)
 jsonData <- jsonData$items |> select(witnesses)
 
@@ -25,4 +25,4 @@ for (i in 1:nrow(jsonData)) {
 }
 
 return(organisations)
-
+}
