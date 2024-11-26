@@ -1,0 +1,16 @@
+Package: speakr
+Title: SpeakR
+Description: Get written evidence from a UK Parliament Select Committee inquiry.
+Version: 1.0
+Authors@R: person("Ross", "Coron", email = "rpcoron@gmail.com, role =  c("aut", "cre", "cph"))
+License: MIT + file LICENSE
+Requires:
+  glue,
+  httr,
+  xml2,
+  jsonlite,
+  base64enc
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2

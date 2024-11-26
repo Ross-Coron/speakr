@@ -1,0 +1,7 @@
+/notes
+/R/removed_text.txt
+/R/written_evidence.csv
+*.DS_Store
+*.Rprofile
+*.RData
+*.Rhistory
